@@ -1,0 +1,11 @@
+import json
+import sys
+
+N_WORKERS = 5
+
+if __name__ == '__main__':
+    conf_fname = sys.argv[1]
+    with open(conf_fname, 'r') as conf_file:
+        conf = json.loads(conf_file.read())
+
+    
