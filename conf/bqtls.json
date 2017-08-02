@@ -8,7 +8,17 @@
         "p_col": 14,
         "skip_header": true
     },
-
+    
+    {
+        "namespace": "meQTL",
+        "file": "data/raw/meQTLs.txt",
+        "fdr": 0.0001,
+        "chr_col": 1,
+        "pos_col": 2,
+        "p_col": 9,
+        "skip_header": true
+    },
+    
     {
         "namespace": "junD_bQTL",
         "file": "data/raw/junD.txt",
@@ -62,40 +72,40 @@
     {
         "namespace": "dhs_hQTL",
         "file": "data/raw/localQTLs_dhs.FDR0.1.bedpe.gz",
-        "fdr": "pass",
+        "fdr": 0.0001,
         "chr_col": 1,
         "pos_col": 3,
-        "p_col": 13,
+        "p_col": 10,
         "skip_header": true
     },
     
     {
         "namespace": "h3k27ac_hQTL",
-        "file": "data/raw/localQTLs_h3k27ac.FDR0.1.bedpe.gz",
-        "fdr": "pass",
+        "file": "data/raw/localQTLs_H3K27AC.FDR0.1.bedpe.gz",
+        "fdr": 0.0001,
         "chr_col": 1,
         "pos_col": 3,
-        "p_col": 13,
+        "p_col": 10,
         "skip_header": true
     },
     
     {
         "namespace": "h3k4me1_hQTL",
-        "file": "data/raw/localQTLs_h3k4me1.FDR0.1.bedpe.gz",
-        "fdr": "pass",
+        "file": "data/raw/localQTLs_H3K4ME1.FDR0.1.bedpe.gz",
+        "fdr": 0.0001,
         "chr_col": 1,
         "pos_col": 3,
-        "p_col": 13,
+        "p_col": 10,
         "skip_header": true
     },
     
     {
         "namespace": "h3k4me3_hQTL",
-        "file": "data/raw/localQTLs_h3k4me3.FDR0.1.bedpe.gz",
-        "fdr": "pass",
+        "file": "data/raw/localQTLs_H3K4ME3.FDR0.1.bedpe.gz",
+        "fdr": 0.0001,
         "chr_col": 1,
         "pos_col": 3,
-        "p_col": 13,
+        "p_col": 10,
         "skip_header": true
     }
 ]

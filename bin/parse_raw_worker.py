@@ -1,33 +1,49 @@
 import argparse
+import gzip
 import pickle
+from pydoc import locate
+import sys
 
-def load_qtls(qtl_fname, **kwargs):
+def load_qtls(qtl_fname, args):
+    args.val_type = locate(args.val_type)
+    args.chr_col -= 1
+    args.pos_col -= 1
+    args.val_col -= 1
+
+    if qtl_fname.endswith('.gz'):
+        opener = gzip.open
+    else:
+        opener = open
+    
     qtls = {}
-    with open(qtl_fname, 'r') as qtl_file:
+    with opener(qtl_fname, 'r') as qtl_file:
         for pos, line in enumerate(qtl_file):
-            if kwargs['skip_header'] and pos == 0:
+            if qtl_fname.endswith('.gz'):
+                line = line.decode('utf-8')
+            
+            if args.skip_header and pos == 0:
                 continue
             
-            fields = line.rstrip().split()
+            fields = line.replace(';', '\t').rstrip().split()
     
             # Filter on possible inputs.
-            if kwargs['val_col'] != None and kwargs['val_type'] != None:
-                if kwargs['eq'] != None and \
-                   kwargs['val_type'](fields[kwargs['val_col']]) != kwargs['eq']:
+            if args.val_col != None and args.val_type != None:
+                if args.eq != None and \
+                   args.val_type(fields[args.val_col]) != args.eq:
                     continue
-                if kwargs['lt'] != None and \
-                   kwargs['val_type'](fields[kwargs['val_col']]) >= kwargs['lt']:
+                if args.lt != None and \
+                   args.val_type(fields[args.val_col]) >= args.lt:
                     continue
-                if kwargs['gt'] != None and \
-                   kwargs['val_type'](fields[kwargs['val_col']]) <= kwargs['gt']:
+                if args.gt != None and \
+                   args.val_type(fields[args.val_col]) <= args.gt:
                     continue
                 
-            if kwargs['chr_col'] == kwargs['pos_col']:
-                chrom, pos = (fields[kwargs['chr_col']]
-                              .split(kwargs['chr_pos_delim'])[:2])
+            if args.chr_col == args.pos_col:
+                chrom, pos = (fields[args.chr_col]
+                              .split(args.chr_pos_delim)[:2])
             else:
-                chrom = fields[kwargs['chr_col']]
-                pos = fields[kwargs['pos_col']]
+                chrom = fields[args.chr_col]
+                pos = fields[args.pos_col]
 
             if chrom.startswith('chr'):
                 chrom = chrom[len('chr'):]
@@ -36,7 +52,7 @@ def load_qtls(qtl_fname, **kwargs):
             except ValueError:
                 continue
             
-            qtls[(chrom, pos)] = kwargs['val_type'](fields[kwargs['val_col']])
+            qtls[(chrom, pos)] = args.val_type(fields[args.val_col])
     return qtls
 
 def parse():
@@ -50,7 +66,7 @@ def parse():
     parser.add_argument('--pos-col', type=int, default=0)
     parser.add_argument('--chr-pos-delim', type=str, default='.')
     parser.add_argument('--val-col', type=int, default=None)
-    parser.add_argument('--val-type', default=None)
+    parser.add_argument('--val-type', default='float')
     parser.add_argument('--eq', default=None)
     parser.add_argument('--lt', default=None)
     parser.add_argument('--gt', default=None)
@@ -59,7 +75,7 @@ def parse():
 
 if __name__ == '__main__':
     args = parse()
-    qtls = load_qtls(args.in_fname, **args)
+    qtls = load_qtls(args.in_fname, args)
     with open(args.out_fname, 'wb') as out_file:
         pickle.dump(qtls, out_file,
                     protocol=pickle.HIGHEST_PROTOCOL)
