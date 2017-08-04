@@ -1,5 +1,6 @@
 data/*
-target/*
+target/joined/*
+target/parsed/*
 #*
 *~
 *.pyc
