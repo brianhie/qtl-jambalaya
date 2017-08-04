@@ -9,6 +9,11 @@ if __name__ == '__main__':
     with open(sys.argv[1], 'rb') as p_file:
         qtl_to_p = pickle.load(p_file)
 
+    for qtl in sorted(qtl_to_p.keys()):
+        print('> {0}:{1}'.format(qtl[0], qtl[1]))
+
+    exit()
+
     n_qtl_types = len(next(iter(qtl_to_p.values())))
     X = np.zeros((
         len(qtl_to_p), n_qtl_types
