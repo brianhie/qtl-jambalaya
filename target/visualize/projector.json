@@ -1,0 +1,13 @@
+{
+    "embeddings": [
+        {
+            "tensorName": "My tensor",
+            "tensorShape": [
+                1000,
+                50
+            ],
+            "tensorPath": "https://github.com/brianhie/qtl-jambalaya/blob/master/target/visualize/eqtls_join_xqtls.txt",
+            "metadataPath": "https://gist.githubusercontent.com/yunwilliamyu/64e9bc6c5eb74d66e0dee4d796fed737/raw/d49030f654343eb4195ad19bcbcb981e45427389/gistfile1.txt"
+        }
+    ]
+}
