@@ -6,7 +6,7 @@ import pickle
 
 from tsne import tsne
 
-P_VAL_CUTOFF = 0.001
+P_VAL_CUTOFF = 0.00001
 
 if __name__ == '__main__':
     # Open a dictionary from QTL locations to a list of p-values
