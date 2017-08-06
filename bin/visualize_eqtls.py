@@ -40,9 +40,8 @@ if __name__ == '__main__':
                 
         # Print to stdout, which can be used as metadata file for the
         # visualization.
-        print('> {0}:{1} {2}'.format(qtl[0], qtl[1], labels))
-
-    exit()
+        print('> {0}:{1} {2}'.format(qtl[0], qtl[1],
+                                     ','.join(labels)))
 
     # Visualize the 3D space after doing a t-SNE dimensionality reduction.
     Y = tsne(X, no_dims=3, initial_dims=n_qtl_types)
