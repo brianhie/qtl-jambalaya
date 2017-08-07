@@ -44,8 +44,7 @@ if __name__ == '__main__':
                                      ','.join(labels)))
 
     # Visualize the 3D space after doing a t-SNE dimensionality reduction.
-    Y = X
-#    Y = tsne(X, no_dims=3, initial_dims=n_qtl_types)
+    Y = tsne(X, no_dims=3, initial_dims=n_qtl_types)
 
     # Save the t-SNE projecte coordinates to a file.
     name = sys.argv[1].split('/')[-1]
